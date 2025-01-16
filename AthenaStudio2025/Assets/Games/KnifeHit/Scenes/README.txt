@@ -1,0 +1,1 @@
+Mỗi thành viên sử dụng riêng 1 scene, main scene do lead quản lý, giao tiếp với nhau thông qua prefabs
