@@ -2,6 +2,6 @@ namespace JumpDash
 {
     public interface IInterable
     {
-        public void Interact();
+        public void Interact(string message);
     }
 }

@@ -1,20 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace KnifeHit
 {
     public class GameManager : MonoBehaviour
     {
-        // Start is called before the first frame update
-        void Start()
+        [SerializeField] Transform LogSpawner;
+        [SerializeField] Transform KnifeSpawner;
+
+        [SerializeField] GameObject LogPrefab;
+        [SerializeField] GameObject KnifePrefab;
+
+        [SerializeField] GameObject CurrentLog;
+        [SerializeField] GameObject CurrentKnife;
+
+        private void SpawnLog()
         {
 
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
+        private void SpawnKnife() {
         }
+
+
     }
 }

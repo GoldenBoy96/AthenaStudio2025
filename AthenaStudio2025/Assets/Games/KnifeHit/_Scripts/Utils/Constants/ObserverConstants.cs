@@ -1,4 +1,4 @@
-namespace MyUtils
+namespace KnifeHit
 {
     public static class ObserverConstants
     {
