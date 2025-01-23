@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace KnifeHit
@@ -8,6 +9,10 @@ namespace KnifeHit
         [SerializeField] private Sprite sprite;
         [SerializeField] private Knife knife;
 
-        public Knife Knife { get => knife;}
+        public Knife Knife { get => knife; }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

@@ -9,4 +9,10 @@ namespace KnifeHit
         Attaching,
         Falling
     }
+
+    public enum LogState
+    {
+        Rotating,
+        Stopping
+    }
 }

@@ -10,8 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efcea751554e55a46b73200d6b86a3dc, type: 3}
-  m_Name: LOG_0
+  m_Name: LOG_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: -654949771657092768, guid: b89ec4395b609144a86b677661c656f1, type: 3}
+  sprite: {fileID: 395865657233447639, guid: 25e3383f345091143ad04c9ef00f4935, type: 3}
   log:
-    rotationPattern: []
+    rotationPattern:
+    - maxSpeed: 500
+      acceleration: 100
+      duration: 5
+    - maxSpeed: 1000
+      acceleration: 500
+      duration: 10
+    - maxSpeed: -500
+      acceleration: 1000
+      duration: 10
+    - maxSpeed: 0
+      acceleration: 500
+      duration: 5

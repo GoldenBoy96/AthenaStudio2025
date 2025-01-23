@@ -1,6 +1,6 @@
 namespace KnifeHit
 {
-    public interface IInterable
+    public interface IInterable<T>
     {
         public void Interact(string message);
     }

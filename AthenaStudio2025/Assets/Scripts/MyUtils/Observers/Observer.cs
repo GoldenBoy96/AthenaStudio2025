@@ -5,10 +5,23 @@ namespace MyUtils
 {
     public class Observer : MonoBehaviour
     {
-        static Dictionary<string, List<Action<object[]>>> Listeners =
+        public static Observer Instance { get; private set; }
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+         Dictionary<string, List<Action<object[]>>> Listeners =
             new();
 
-        public static void AddObserver(string name, Action<object[]> callback)
+        public  void AddObserver(string name, Action<object[]> callback)
         {
             if (!Listeners.ContainsKey(name))
             {
@@ -18,7 +31,7 @@ namespace MyUtils
             Listeners[name].Add(callback);
         }
 
-        public static void RemoveObserver(string name, Action<object[]> callback)
+        public  void RemoveObserver(string name, Action<object[]> callback)
         {
             if (!Listeners.ContainsKey(name))
             {
@@ -28,7 +41,7 @@ namespace MyUtils
             Listeners[name].Remove(callback);
         }
 
-        public static void Notify(string name, params object[] data)
+        public  void Notify(string name, params object[] data)
         {
             if (!Listeners.ContainsKey(name))
             {
@@ -43,7 +56,7 @@ namespace MyUtils
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogError("Error on invoke listener: " + ex);
+                    //Debug.LogError("Error on invoke listener: " + ex);
                 }
             }
         }

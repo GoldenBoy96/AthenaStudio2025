@@ -6,15 +6,24 @@ namespace KnifeHit
     [Serializable]
     public class Level : ICloneable<Level>
     {
-        [SerializeField] private LogSO log;
-        [SerializeField] private KnifeSO knife;
+        [SerializeField] LogController logPrefab;
+        [SerializeField] KnifeController knifePrefab;
         [SerializeField] private int knifeAmount;
+        [SerializeField] private float reloadCooldown;
 
+        public LogController LogPrefab { get => logPrefab; }
+        public KnifeController KnifePrefab { get => knifePrefab; }
+        public int KnifeAmount { get => knifeAmount; }
+        public float ReloadCooldown { get => reloadCooldown; }
 
         public Level CloneSelf()
         {
-            var serialized = JsonConvert.SerializeObject(this);
-            return JsonConvert.DeserializeObject<Level>(serialized);
+            var serialized = JsonUtility.ToJson(this);
+            return JsonUtility.FromJson<Level>(serialized);
+        }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c72b8671fc8a33d42aeaef3499aa2373, type: 3}
-  m_Name: KNIFE_0
+  m_Name: KNIFE_2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 2847077809960639161, guid: 17773b7bc789fad458f10afc8b8ba20b, type: 3}
+  sprite: {fileID: -8732998877459969274, guid: d4c7d56d82effac4cbb936d24cc2f61e, type: 3}
   knife:
     flyingSpeed: 50

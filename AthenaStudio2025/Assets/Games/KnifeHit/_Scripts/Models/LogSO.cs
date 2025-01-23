@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace KnifeHit
@@ -9,5 +10,9 @@ namespace KnifeHit
         [SerializeField] private Log log;
 
         public Log Log { get => log; set => log = value; }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

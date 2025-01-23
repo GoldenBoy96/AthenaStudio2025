@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace KnifeHit
@@ -8,5 +9,9 @@ namespace KnifeHit
         [SerializeField] private Level level;
 
         public Level Level { get => level; }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
     }
 }

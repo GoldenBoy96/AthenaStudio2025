@@ -15,8 +15,13 @@ namespace KnifeHit
 
         public Log CloneSelf()
         {
-            var serialized = JsonConvert.SerializeObject(this);
-            return JsonConvert.DeserializeObject<Log>(serialized);
+            var serialized = JsonUtility.ToJson(this);
+            return JsonUtility.FromJson<Log>(serialized);
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

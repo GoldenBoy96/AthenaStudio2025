@@ -1,12 +1,16 @@
+using JumpDash;
+using MyUtils;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 namespace KnifeHit
 {
-    public class KnifeController : MonoBehaviour, IInterable
+    public class KnifeController : MonoBehaviour, IInterable<Knife>
     {
         [SerializeField] private KnifeSO knifeSO;
+
+        [Header("Runtime Parameter")]
         [SerializeField] private Knife knife;
         [SerializeField] private KnifeState currentState;
 
@@ -17,11 +21,16 @@ namespace KnifeHit
                 knife = knifeSO.Knife.CloneSelf();
 
             }
+
+        }
+        private void Start()
+        {
+            Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(KnifeState.Falling));
+
         }
 
         private void Update()
         {
-            
 
             UpdateState();
         }
@@ -93,6 +102,7 @@ namespace KnifeHit
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 SwitchToState(KnifeState.Flying);
+                Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN);
             }
         }
         private void Exit_Pending()
@@ -119,7 +129,8 @@ namespace KnifeHit
         #region State Attaching
         private void Enter_Attaching()
         {
-
+            transform.position = GameManager.Instance.CurrentLevel.KnifeStopPoint.position;
+            GameManager.Instance.CurrentLevel.AttachKnifeToLog(transform);
         }
         private void Update_Attaching()
         {
@@ -132,13 +143,20 @@ namespace KnifeHit
         #endregion
 
         #region State Attaching
+
+        float rotateSpeed = 0;
         private void Enter_Falling()
         {
-
+            if (gameObject.TryGetComponent<Rigidbody2D>(out var rg))
+            {
+                rg.gravityScale = 1;
+                transform.parent = transform.root;
+            }
+            rotateSpeed = Random.Range(-100, 100);
         }
         private void Update_Falling()
         {
-
+            transform.Rotate(new Vector3(0, 0, rotateSpeed * Time.deltaTime));
         }
         private void Exit_Falling()
         {
@@ -152,6 +170,28 @@ namespace KnifeHit
             {
                 SwitchToState(KnifeState.Attaching);
             }
+            if (message == InteractionConstants.KNIFE_INTERACTION)
+            {
+                Observer.Instance.Notify(ObserverConstants.LOSE_GAME);
+            }
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            if (collision.TryGetComponent<IInterable<Log>>(out var log))
+            {
+                Interact(InteractionConstants.LOG_INTERACTION);
+            }
+            if (collision.TryGetComponent<IInterable<Knife>>(out var knife))
+            {
+                Interact(InteractionConstants.KNIFE_INTERACTION);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            Observer.Instance.RemoveObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(KnifeState.Falling));
+
         }
     }
 }

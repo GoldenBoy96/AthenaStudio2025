@@ -19,8 +19,12 @@ namespace KnifeHit
 
         public Knife CloneSelf()
         {
-            var serialized = JsonConvert.SerializeObject(this);
-            return JsonConvert.DeserializeObject<Knife>(serialized);
+            var serialized = JsonUtility.ToJson(this);
+            return JsonUtility.FromJson<Knife>(serialized);
+        }
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }
