@@ -153,7 +153,7 @@ namespace KnifeHit
         }
         #endregion
 
-        #region State Attaching
+        #region State Falling
 
         float rotateSpeed = 0;
         private void Enter_Falling()
@@ -167,7 +167,7 @@ namespace KnifeHit
             {
                 Destroy(collider);
             }
-            rotateSpeed = Random.Range(-100, 100);
+            rotateSpeed = Random.Range(-300, 300);
         }
         private void Update_Falling()
         {
@@ -187,7 +187,10 @@ namespace KnifeHit
             }
             if (message == InteractionConstants.KNIFE_INTERACTION)
             {
-                Observer.Instance.Notify(ObserverConstants.LOSE_GAME);
+                if (!GameManager.Instance.CurrentLevel.IsEndGame)
+                {
+                    Observer.Instance.Notify(ObserverConstants.LOSE_GAME);
+                }
             }
         }
 

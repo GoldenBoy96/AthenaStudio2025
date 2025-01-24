@@ -15,6 +15,12 @@ MonoBehaviour:
   level:
     logPrefab: {fileID: 1462077439033831611, guid: 43e03167e174de84c9d3fc49b6d56679, type: 3}
     knifePrefab: {fileID: 6736967164618893354, guid: f0d2acd505a9ae34c8998f5d4c93e30b, type: 3}
+    itemLists:
+    - {fileID: 6911043679025692740, guid: bb4faf93dc896d64ea6965b70b2c3580, type: 3}
+    - {fileID: 6911043679025692740, guid: 3d235b6ac6506c3418e58b4638747034, type: 3}
+    - {fileID: 6911043679025692740, guid: 30122d5b9a4b9744a82f141999ca8d59, type: 3}
+    - {fileID: 6911043679025692740, guid: d408fe3f3ac8f9945a10dbc51e498456, type: 3}
+    - {fileID: 6911043679025692740, guid: ab763b478cec1534a98d0b6db8b84ce2, type: 3}
     knifeAmount: 3
     reloadCooldown: 0.3
     background: {fileID: 1548841561, guid: 121364b1e59c72e43a33573e181bbdff, type: 3}

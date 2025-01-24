@@ -193,7 +193,6 @@ namespace KnifeHit
         }
         public void Interact(string message)
         {
-            throw new System.NotImplementedException();
         }
     }
 }

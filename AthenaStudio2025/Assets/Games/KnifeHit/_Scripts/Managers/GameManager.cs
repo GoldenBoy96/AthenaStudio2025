@@ -40,6 +40,7 @@ namespace KnifeHit
         }
         public void RestartLevel()
         {
+            Debug.Log(currentLevel.ToString());
             InitLevel();
         }
 

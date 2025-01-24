@@ -1,5 +1,7 @@
+using ItemHit;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 namespace KnifeHit
@@ -9,6 +11,7 @@ namespace KnifeHit
     {
         [SerializeField] LogController logPrefab;
         [SerializeField] KnifeController knifePrefab;
+        [SerializeField] List<ItemController> itemLists;
         [SerializeField] private int knifeAmount;
         [SerializeField] private float reloadCooldown;
         [SerializeField] Sprite background;
@@ -18,6 +21,7 @@ namespace KnifeHit
         public int KnifeAmount { get => knifeAmount; }
         public float ReloadCooldown { get => reloadCooldown; }
         public Sprite Background { get => background; }
+        public List<ItemController> ItemLists { get => itemLists; }
 
         public Level CloneSelf()
         {
@@ -29,4 +33,5 @@ namespace KnifeHit
             return JsonConvert.SerializeObject(this);
         }
     }
+
 }

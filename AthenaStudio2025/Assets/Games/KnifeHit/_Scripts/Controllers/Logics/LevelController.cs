@@ -1,3 +1,4 @@
+using ItemHit;
 using KnifeHit;
 using MyUtils;
 using System.Collections;
@@ -34,6 +35,7 @@ public class LevelController : MonoBehaviour
     public Transform KnifeStopPoint { get => knifeStopPoint; }
     public LogController CurrentLog { get => currentLog; }
     public KnifeController CurrentKnife { get => currentKnife; }
+    public bool IsEndGame { get => isEndGame;}
 
     private void Awake()
     {
@@ -63,6 +65,25 @@ public class LevelController : MonoBehaviour
             levelState = LevelState.Winning;
             CheckGameOver();
         });
+        SetUpItem();
+    }
+
+    private void SetUpItem()
+    {
+        foreach (var itemPrefab in level.ItemLists)
+        {
+            ItemController itemController = Instantiate(itemPrefab, currentLog.transform.parent);
+            itemController.transform.position = currentLog.transform.position;
+            itemController.transform.position = new Vector3(itemController.transform.position.x,
+                itemController.transform.position.y + itemController.Item.Distance,
+                itemController.transform.position.z);
+            currentLog.transform.rotation = Quaternion.Euler(currentLog.transform.rotation.x, 
+                currentLog.transform.rotation.y,
+                -itemController.Item.Degree);
+            itemController.transform.parent = currentLog.transform;
+            currentLog.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        }
     }
 
     private void InitLevel()
@@ -85,7 +106,8 @@ public class LevelController : MonoBehaviour
 
     private void CheckGameOver()
     {
-        Debug.Log(levelState);
+        //Debug.Log(levelState);
+        if (isEndGame) { return; }
         switch (levelState)
         {
             case LevelState.Playing:
@@ -97,7 +119,7 @@ public class LevelController : MonoBehaviour
                 break;
             case LevelState.Winning:
                 StopAllCoroutines();
-                Debug.Log("You win");
+                //Debug.Log("You win");
                 if (!isEndGame)
                 {
                     AudioManager.Instance.PlayAudio(AudioConstants.HIT_2);
@@ -107,7 +129,7 @@ public class LevelController : MonoBehaviour
             case LevelState.Losing:
                 //StopCoroutine(nameof(SpawnKnifeAfterCooldown));
                 StopAllCoroutines();
-                Debug.Log("You lose");
+                //Debug.Log("You lose");
                 if (!isEndGame)
                 {
                     AudioManager.Instance.PlayAudio(AudioConstants.HIT_3);

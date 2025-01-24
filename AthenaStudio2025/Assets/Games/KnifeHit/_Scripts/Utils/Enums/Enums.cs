@@ -23,4 +23,10 @@ namespace KnifeHit
         Winning,
         Losing
     }
+
+    public enum ItemState
+    {
+        Pending,
+        Falling
+    }
 }
