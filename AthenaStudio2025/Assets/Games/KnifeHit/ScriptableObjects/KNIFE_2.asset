@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: -8732998877459969274, guid: d4c7d56d82effac4cbb936d24cc2f61e, type: 3}
   knife:
-    flyingSpeed: 50
+    flyingSpeed: 40

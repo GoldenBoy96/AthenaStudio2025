@@ -17,13 +17,13 @@ MonoBehaviour:
     rotationPattern:
     - maxSpeed: 500
       acceleration: 200
-      duration: 5
+      duration: 2
     - maxSpeed: -500
       acceleration: 200
-      duration: 10
+      duration: 4
     - maxSpeed: 500
       acceleration: 200
-      duration: 10
+      duration: 4
     - maxSpeed: -500
       acceleration: 200
-      duration: 5
+      duration: 2

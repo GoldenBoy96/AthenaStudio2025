@@ -109,6 +109,7 @@ MonoBehaviour:
   currentRotationElementIndex: 0
   currentSpeed: 0
   currentAcceleration: 0
+  currentState: 0
 --- !u!58 &9109556524248952738
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -160,7 +161,7 @@ Rigidbody2D:
   m_Mass: 0.0001
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -171,4 +172,4 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 3
+  m_Constraints: 0

@@ -32,6 +32,7 @@ namespace KnifeHit
             StartNextRotate();
             SwitchToState(LogState.Rotating);
             Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(LogState.Stopping));
+            Observer.Instance.AddObserver(ObserverConstants.WIN_GAME, (x) => SwitchToState(LogState.Falling));
 
         }
 
@@ -51,6 +52,9 @@ namespace KnifeHit
                 case LogState.Stopping:
                     Exit_Stopping();
                     break;
+                case LogState.Falling:
+                    Exit_Falling();
+                    break;
             }
 
             switch (incomingState)
@@ -60,6 +64,9 @@ namespace KnifeHit
                     break;
                 case LogState.Stopping:
                     Enter_Stopping();
+                    break;
+                case LogState.Falling:
+                    Enter_Falling();
                     break;
             }
 
@@ -74,6 +81,9 @@ namespace KnifeHit
                     break;
                 case LogState.Stopping:
                     Update_Stopping();
+                    break;
+                case LogState.Falling:
+                    Update_Falling();
                     break;
             }
         }
@@ -103,6 +113,31 @@ namespace KnifeHit
         {
         }
         private void Exit_Stopping()
+        {
+
+        }
+        #endregion
+        #region State Falling
+        float rotateSpeed = 0;
+        private void Enter_Falling()
+        {
+            StopAllCoroutines();
+            if (gameObject.TryGetComponent<Rigidbody2D>(out var rg))
+            {
+                rg.gravityScale = 1;
+                transform.parent = transform.root;
+                foreach (Collider2D collider in gameObject.GetComponents<Collider2D>())
+                {
+                    Destroy(collider);
+                }
+            }
+            rotateSpeed = Random.Range(-500, 500);
+        }
+        private void Update_Falling()
+        {
+            transform.Rotate(new Vector3(0, 0, rotateSpeed * Time.deltaTime));
+        }
+        private void Exit_Falling()
         {
 
         }

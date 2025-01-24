@@ -13,6 +13,14 @@ namespace KnifeHit
     public enum LogState
     {
         Rotating,
-        Stopping
+        Stopping,
+        Falling
+    }
+
+    public enum LevelState
+    {
+        Playing,
+        Winning,
+        Losing
     }
 }

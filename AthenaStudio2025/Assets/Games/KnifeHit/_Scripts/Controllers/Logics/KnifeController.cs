@@ -26,6 +26,8 @@ namespace KnifeHit
         private void Start()
         {
             Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(KnifeState.Falling));
+            Observer.Instance.AddObserver(ObserverConstants.WIN_GAME, (x) => SwitchToState(KnifeState.Falling));
+            Observer.Instance.AddObserver(ObserverConstants.KNIFE_THROWN_BUTTON_INPUT, (x) => ThrowKnife());
 
         }
 
@@ -33,6 +35,15 @@ namespace KnifeHit
         {
 
             UpdateState();
+        }
+
+        public void ThrowKnife()
+        {
+            if (currentState == KnifeState.Pending)
+            {
+                SwitchToState(KnifeState.Flying);
+                Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN);
+            }
         }
 
         #region State Machine
@@ -95,14 +106,13 @@ namespace KnifeHit
         #region State Pending
         private void Enter_Pending()
         {
-
+            //Observer.Instance.AddObserver(ObserverConstants.KNIFE_THROWN, (x) => SwitchToState(KnifeState.Flying));
         }
         private void Update_Pending()
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                SwitchToState(KnifeState.Flying);
-                Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN);
+                ThrowKnife();
             }
         }
         private void Exit_Pending()
@@ -131,6 +141,7 @@ namespace KnifeHit
         {
             transform.position = GameManager.Instance.CurrentLevel.KnifeStopPoint.position;
             GameManager.Instance.CurrentLevel.AttachKnifeToLog(transform);
+            AudioManager.Instance.PlayAudio(AudioConstants.HIT_1);
         }
         private void Update_Attaching()
         {
@@ -151,6 +162,10 @@ namespace KnifeHit
             {
                 rg.gravityScale = 1;
                 transform.parent = transform.root;
+            }
+            foreach (Collider2D collider in gameObject.GetComponents<Collider2D>())
+            {
+                Destroy(collider);
             }
             rotateSpeed = Random.Range(-100, 100);
         }

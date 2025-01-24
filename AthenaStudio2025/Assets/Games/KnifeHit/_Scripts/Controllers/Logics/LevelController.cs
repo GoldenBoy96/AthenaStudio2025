@@ -2,6 +2,7 @@ using KnifeHit;
 using MyUtils;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class LevelController : MonoBehaviour
     [SerializeField] Transform logHolder;
     [SerializeField] Transform knifeHolder;
     [SerializeField] Transform knifeStopPoint;
+    [SerializeField] Canvas backgroundCanvas;
+    [SerializeField] Image backgroundImage;
 
     [Header("Runtime Parameter")]
     [SerializeField] Level level;
@@ -23,9 +26,14 @@ public class LevelController : MonoBehaviour
     [SerializeField] int totalKnife = 0;
     [SerializeField] int amountKnifeLeft = 0;
 
-    public Transform LogHolder { get => logHolder;}
-    public Transform KnifeHolder { get => knifeHolder;}
+    [SerializeField] LevelState levelState = LevelState.Playing;
+    [SerializeField] bool isEndGame = false;
+
+    public Transform LogHolder { get => logHolder; }
+    public Transform KnifeHolder { get => knifeHolder; }
     public Transform KnifeStopPoint { get => knifeStopPoint; }
+    public LogController CurrentLog { get => currentLog; }
+    public KnifeController CurrentKnife { get => currentKnife; }
 
     private void Awake()
     {
@@ -34,12 +42,27 @@ public class LevelController : MonoBehaviour
             level = levelSO.Level.CloneSelf();
             logPrefab = level.LogPrefab;
             knifePrefab = level.KnifePrefab;
+            backgroundCanvas.worldCamera = Camera.main;
+            backgroundCanvas.sortingLayerName = "Background";
+            backgroundImage.sprite = level.Background;
         }
     }
     private void Start()
     {
+        levelState = LevelState.Playing;
+        isEndGame = false;
         InitLevel();
         Observer.Instance.AddObserver(ObserverConstants.KNIFE_THROWN, (x) => CheckGameOver());
+        Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, (x) =>
+        {
+            levelState = LevelState.Losing;
+            CheckGameOver();
+        });
+        Observer.Instance.AddObserver(ObserverConstants.WIN_GAME, (x) =>
+        {
+            levelState = LevelState.Winning;
+            CheckGameOver();
+        });
     }
 
     private void InitLevel()
@@ -62,14 +85,37 @@ public class LevelController : MonoBehaviour
 
     private void CheckGameOver()
     {
-        if (amountKnifeLeft > 0)
+        Debug.Log(levelState);
+        switch (levelState)
         {
-            StartCoroutine(SpawnKnifeAfterCooldown());
+            case LevelState.Playing:
+                StopAllCoroutines();
+                if (!isEndGame)
+                {
+                    StartCoroutine(SpawnKnifeAfterCooldown());
+                }
+                break;
+            case LevelState.Winning:
+                StopAllCoroutines();
+                Debug.Log("You win");
+                if (!isEndGame)
+                {
+                    AudioManager.Instance.PlayAudio(AudioConstants.HIT_2);
+                    isEndGame = true;
+                }
+                break;
+            case LevelState.Losing:
+                //StopCoroutine(nameof(SpawnKnifeAfterCooldown));
+                StopAllCoroutines();
+                Debug.Log("You lose");
+                if (!isEndGame)
+                {
+                    AudioManager.Instance.PlayAudio(AudioConstants.HIT_3);
+                    isEndGame = true;
+                }
+                break;
         }
-        else
-        {
-            Debug.Log("You win");
-        }
+
     }
 
     IEnumerator SpawnKnifeAfterCooldown()
@@ -82,6 +128,10 @@ public class LevelController : MonoBehaviour
         if (currentLog != null)
         {
             knife.parent = currentLog.LogTransform;
+            if (amountKnifeLeft <= 1)
+            {
+                Observer.Instance.Notify(ObserverConstants.WIN_GAME);
+            }
         }
     }
 

@@ -1,3 +1,4 @@
+using MyUtils;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,7 @@ namespace KnifeHit
         private void Start()
         {
             currentLevel = Instantiate(levelPrefabs[currentLevelIndex]);
+            Observer.Instance.AddObserver(ObserverConstants.WIN_GAME, (x) => StartCoroutine(WaitToNextLevel())) ;
         }
 
         public void InitLevel()
@@ -59,6 +61,17 @@ namespace KnifeHit
                 currentLevelIndex = levelPrefabs.Count - 1;
             }
             InitLevel();
+        }
+
+        public void ThrowKnife()
+        {
+            Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN_BUTTON_INPUT);
+        }
+
+        IEnumerator WaitToNextLevel()
+        {
+            yield return new WaitForSeconds(2f);
+            NextLevel();
         }
     }
 }

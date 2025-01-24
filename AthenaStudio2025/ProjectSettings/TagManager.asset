@@ -41,11 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3406673253
+    locked: 0
   - name: Knife
     uniqueID: 576043595
     locked: 0
   - name: Log
     uniqueID: 819421379
+    locked: 0
+  - name: UI
+    uniqueID: 239910777
     locked: 0
   m_RenderingLayers:
   - Default

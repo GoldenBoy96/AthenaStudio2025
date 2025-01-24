@@ -18,10 +18,10 @@ namespace MyUtils
             }
         }
 
-         Dictionary<string, List<Action<object[]>>> Listeners =
-            new();
+        Dictionary<string, List<Action<object[]>>> Listeners =
+           new();
 
-        public  void AddObserver(string name, Action<object[]> callback)
+        public void AddObserver(string name, Action<object[]> callback)
         {
             if (!Listeners.ContainsKey(name))
             {
@@ -31,7 +31,7 @@ namespace MyUtils
             Listeners[name].Add(callback);
         }
 
-        public  void RemoveObserver(string name, Action<object[]> callback)
+        public void RemoveObserver(string name, Action<object[]> callback)
         {
             if (!Listeners.ContainsKey(name))
             {
@@ -41,7 +41,7 @@ namespace MyUtils
             Listeners[name].Remove(callback);
         }
 
-        public  void Notify(string name, params object[] data)
+        public void Notify(string name, params object[] data)
         {
             if (!Listeners.ContainsKey(name))
             {
