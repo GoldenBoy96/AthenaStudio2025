@@ -19,31 +19,19 @@ namespace KnifeHit
             if (knifeSO != null)
             {
                 knife = knifeSO.Knife.CloneSelf();
-
             }
-
         }
         private void Start()
         {
             Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(KnifeState.Falling));
             Observer.Instance.AddObserver(ObserverConstants.WIN_GAME, (x) => SwitchToState(KnifeState.Falling));
             Observer.Instance.AddObserver(ObserverConstants.KNIFE_THROWN_BUTTON_INPUT, (x) => ThrowKnife());
-
         }
 
         private void Update()
         {
 
             UpdateState();
-        }
-
-        public void ThrowKnife()
-        {
-            if (currentState == KnifeState.Pending)
-            {
-                SwitchToState(KnifeState.Flying);
-                Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN);
-            }
         }
 
         #region State Machine
@@ -194,6 +182,15 @@ namespace KnifeHit
             }
         }
 
+        public void ThrowKnife()
+        {
+            if (currentState == KnifeState.Pending)
+            {
+                SwitchToState(KnifeState.Flying);
+                Observer.Instance.Notify(ObserverConstants.KNIFE_THROWN);
+            }
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.TryGetComponent<IInterable<Log>>(out var log))
@@ -209,7 +206,7 @@ namespace KnifeHit
         private void OnDestroy()
         {
             Observer.Instance.RemoveObserver(ObserverConstants.LOSE_GAME, (x) => SwitchToState(KnifeState.Falling));
-
+            
         }
     }
 }

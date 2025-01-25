@@ -5,9 +5,18 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/SampleScene.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
+    path: Assets/System/MainMenu.unity
+    guid: 78a216afa4ec3e24f88099dbabb7d86d
+  - enabled: 1
+    path: Assets/Games/KnifeHit/Scenes/KnifeHit.unity
+    guid: 82c4774b1278bcd43bdf2842c03ff9b1
+  - enabled: 1
+    path: Assets/Games/JumpDash/Scenes/JumpDash.unity
+    guid: ee7606ede1d937e49be3a58f077bb7f6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

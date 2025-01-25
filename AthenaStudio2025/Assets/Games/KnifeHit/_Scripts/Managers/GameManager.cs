@@ -11,10 +11,16 @@ namespace KnifeHit
         [SerializeField] List<LevelController> levelPrefabs;
         [SerializeField] LevelController currentLevel;
         [SerializeField] int currentLevelIndex = 0;
+
+        PoolingHelper knifePool = new();
+
+
         public LevelController CurrentLevel { get => currentLevel; }
 
 
         public static GameManager Instance { get; private set; }
+        public PoolingHelper KnifePool { get => knifePool; }
+
         private void Awake()
         {
             if (Instance == null)
@@ -37,6 +43,7 @@ namespace KnifeHit
         {
             if (currentLevel != null) Destroy(currentLevel.gameObject);
             currentLevel = Instantiate(levelPrefabs[currentLevelIndex]);
+            //currentLevel = PoolingHelper.SpawnObject(levelPrefabs[currentLevelIndex].gameObject, transform).GetComponent<LevelController>();
         }
         public void RestartLevel()
         {

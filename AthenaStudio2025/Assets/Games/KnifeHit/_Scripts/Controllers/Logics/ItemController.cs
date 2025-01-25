@@ -2,7 +2,7 @@ using KnifeHit;
 using MyUtils;
 using UnityEngine;
 
-namespace ItemHit
+namespace KnifeHit
 {
     public class ItemController : MonoBehaviour, IInterable<Item>
     {
@@ -106,7 +106,8 @@ namespace ItemHit
         #endregion
         public void Interact(string message)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            PoolingHelper.ReturnObjectToPool(gameObject);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -127,5 +128,6 @@ namespace ItemHit
             }
 
         }
+       
     }
 }

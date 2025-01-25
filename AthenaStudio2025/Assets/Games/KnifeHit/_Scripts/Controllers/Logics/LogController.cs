@@ -194,5 +194,6 @@ namespace KnifeHit
         public void Interact(string message)
         {
         }
+        
     }
 }
