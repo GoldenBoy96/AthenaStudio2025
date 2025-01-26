@@ -14,12 +14,10 @@ namespace KnifeHit
 
         PoolingHelper knifePool = new();
 
-
         public LevelController CurrentLevel { get => currentLevel; }
-
+        public PoolingHelper KnifePool { get => knifePool; }
 
         public static GameManager Instance { get; private set; }
-        public PoolingHelper KnifePool { get => knifePool; }
 
         private void Awake()
         {

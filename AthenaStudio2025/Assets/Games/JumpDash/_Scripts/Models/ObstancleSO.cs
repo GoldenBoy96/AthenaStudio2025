@@ -1,19 +1,17 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace JumpDash
 {
-    public class ObstancleSO : MonoBehaviour
+    [CreateAssetMenu(fileName = "Obstancle", menuName = "ScriptableObjects/JumpDash/Obstancle", order = 1)]
+    public class ObstancleSO : ScriptableObject
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] Obstancle obstancle;
+
+        public Obstancle Obstancle { get => obstancle; }
+        public override string ToString()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

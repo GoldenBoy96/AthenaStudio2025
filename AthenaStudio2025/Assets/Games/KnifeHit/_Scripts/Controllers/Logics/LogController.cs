@@ -44,6 +44,7 @@ namespace KnifeHit
         #region State Machine
         private void SwitchToState(LogState incomingState)
         {
+            if (currentState == incomingState) return;
             switch (currentState)
             {
                 case LogState.Rotating:

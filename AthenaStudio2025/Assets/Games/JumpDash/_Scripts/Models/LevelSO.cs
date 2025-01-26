@@ -1,19 +1,18 @@
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace JumpDash
 {
-    public class LevelSO : MonoBehaviour
+    [CreateAssetMenu(fileName = "Level", menuName = "ScriptableObjects/JumpDash/Level", order = 1)]
+    public class LevelSO : ScriptableObject
     {
-        // Start is called once before the first execution of Update after the MonoBehaviour is created
-        void Start()
+        [SerializeField] Level level;
+
+        public Level Level { get => level; }
+
+        public override string ToString()
         {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

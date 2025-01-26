@@ -10,7 +10,7 @@ namespace JumpDash
 
         [SerializeField] float speed;
 
-        public float Speed { get => speed; }
+        public float Speed { get => speed; set => speed = value; }
 
         public Player CloneSelf()
         {

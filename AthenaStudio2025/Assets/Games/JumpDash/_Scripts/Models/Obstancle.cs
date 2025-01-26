@@ -9,8 +9,10 @@ namespace JumpDash
     public class Obstancle : ICloneable<Obstancle>
     {
         [SerializeField] float speed;
+        [SerializeField] float randomPositionRange;
 
-        public float Speed { get => speed; }
+        public float Speed { get => speed; set => speed = value; }
+        public float RandomPositionRange { get => randomPositionRange; set => randomPositionRange = value; }
 
         public Obstancle CloneSelf()
         {

@@ -37,6 +37,7 @@ namespace KnifeHit
         #region State Machine
         private void SwitchToState(KnifeState incomingState)
         {
+            if (currentState == incomingState) return;
             switch (currentState)
             {
                 case KnifeState.Pending:

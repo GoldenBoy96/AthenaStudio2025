@@ -15,15 +15,15 @@ MonoBehaviour:
   sprite: {fileID: 395865657233447639, guid: 25e3383f345091143ad04c9ef00f4935, type: 3}
   log:
     rotationPattern:
-    - maxSpeed: 5000
-      acceleration: 1000
-      duration: 5
     - maxSpeed: 100
       acceleration: 500
       duration: 5
     - maxSpeed: -100
       acceleration: 1000
       duration: 5
-    - maxSpeed: 0
+    - maxSpeed: 5000
       acceleration: 500
+      duration: 5
+    - maxSpeed: -500
+      acceleration: 1000
       duration: 5

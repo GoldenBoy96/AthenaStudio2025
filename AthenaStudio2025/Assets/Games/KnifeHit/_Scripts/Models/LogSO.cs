@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace KnifeHit
 {
-    [CreateAssetMenu(fileName = "Log", menuName = "ScriptableObjects/Log", order = 2)]
+    [CreateAssetMenu(fileName = "Log", menuName = "ScriptableObjects/KnifeHit/Log", order = 2)]
     public class LogSO : ScriptableObject
     {
         [SerializeField] private Sprite sprite;

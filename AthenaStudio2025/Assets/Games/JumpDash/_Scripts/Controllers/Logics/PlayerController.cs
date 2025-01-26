@@ -1,4 +1,5 @@
 using KnifeHit;
+using MyUtils;
 using UnityEngine;
 
 namespace JumpDash
@@ -6,26 +7,60 @@ namespace JumpDash
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] PlayerSO playerSO;
+        [SerializeField] ParticleSystem particleSystem;
 
         [Header("Runtime parameter")]
         [SerializeField] Player player;
-        [SerializeField] PlayerState currentState = PlayerState.Idle; private void Awake()
+        [SerializeField] PlayerState currentState = PlayerState.Idle;
+        [SerializeField] WallController currentWall;
+        private void Awake()
         {
             if (playerSO != null)
             {
                 player = playerSO.Player.CloneSelf();
             }
         }
+        private void Start()
+        {
+            int random = Random.Range(0, 2);
+            if (random == 0)
+            {
+                Observer.Instance.AddObserver(ObserverConstants.START_GAME, (x) => SwitchToState(PlayerState.MoveLeft));
+            }
+            else
+            {
+                Observer.Instance.AddObserver(ObserverConstants.START_GAME, (x) => SwitchToState(PlayerState.MoveRight));
+            }
+            Observer.Instance.AddObserver(ObserverConstants.END_GAME, (x) => SwitchToState(PlayerState.Idle));
+            Observer.Instance.AddObserver(GUIConstants.BUTTON_PLAY_CLICK, (x) =>
+            {
+                if (GameManager.Instance.CurrentLevel.CurrentState == LevelState.Playing)
+                {
+                    if (currentState == PlayerState.Idle)
+                    {
+                        if (currentWall.Type == WallType.Left)
+                        {
+                            SwitchToState(PlayerState.MoveRight);
+                        }
+                        else if (currentWall.Type == WallType.Right)
+                        {
+                            SwitchToState(PlayerState.MoveLeft);
+                        }
+
+                    }
+                }
+            });
+        }
 
         private void Update()
         {
-
             UpdateState();
         }
 
         #region State Machine
         private void SwitchToState(PlayerState incomingState)
         {
+            if (currentState == incomingState) return;
             switch (currentState)
             {
                 case PlayerState.Idle:
@@ -72,7 +107,9 @@ namespace JumpDash
         #endregion
         #region State Idle
         private void Enter_Idle()
-        { }
+        {
+            particleSystem.Play();
+        }
         private void Update_Idle()
         {
         }
@@ -84,6 +121,7 @@ namespace JumpDash
         #region State MoveLeft
         private void Enter_MoveLeft()
         {
+            AudioManager.Instance.PlayAudio(AudioConstants.JUMP);
         }
         private void Update_MoveLeft()
         {
@@ -96,6 +134,7 @@ namespace JumpDash
         #region State MoveRight
         private void Enter_MoveRight()
         {
+            AudioManager.Instance.PlayAudio(AudioConstants.JUMP);
         }
         private void Update_MoveRight()
         {
@@ -110,6 +149,11 @@ namespace JumpDash
             if (collision.TryGetComponent<WallController>(out var wall))
             {
                 SwitchToState(PlayerState.Idle);
+                currentWall = wall;
+            }
+            if (collision.TryGetComponent<ObstancleController>(out var obstancle))
+            {
+                Observer.Instance.Notify(ObserverConstants.END_GAME);
             }
         }
     }

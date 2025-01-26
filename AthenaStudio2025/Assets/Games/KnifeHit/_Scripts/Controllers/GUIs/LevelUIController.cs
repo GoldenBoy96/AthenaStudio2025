@@ -38,6 +38,7 @@ namespace KnifeHit
                 (x) => StartCoroutine(WaitToEnableLoseScreen()));
         }
 
+
         private void DisableAllScreen()
         {
             foreach (GameObject screen in screens)

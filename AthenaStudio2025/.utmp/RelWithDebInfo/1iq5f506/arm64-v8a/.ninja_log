@@ -1,0 +1,12 @@
+# ninja log v5
+187	5578	7595865175327174	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	8d519ab51c9f5082
+5592	6532	7595865184562812	D:/Desktop/AthenaStudio2025/AthenaStudio2025/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1iq5f506/obj/arm64-v8a/libswappywrapper.so	b35fc73c8dcaa46a
+89	7853	7595865197895053	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	9284a4f00837dd8b
+182	8103	7595865200474912	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	86abe1ed125120bc
+20	8151	7595865200980846	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	9bd95f1b971c48c7
+81	8218	7595865201666471	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	78d3cf1d49336f65
+146	8240	7595865201844026	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	bb2e414439b5ee3f
+85	8370	7595865203203999	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	848a402fea99d675
+95	8426	7595865203770707	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	b88451af3939263f
+14	8564	7595865205140007	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	92cd3203ee3325c4
+8564	9756	7595865217033440	D:/Desktop/AthenaStudio2025/AthenaStudio2025/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/1iq5f506/obj/arm64-v8a/libgame.so	ae620313cc63c85e
