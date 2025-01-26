@@ -37,6 +37,8 @@ namespace KnifeHit
         public LogController CurrentLog { get => currentLog; }
         public KnifeController CurrentKnife { get => currentKnife; }
         public bool IsEndGame { get => isEndGame; }
+        public int TotalKnife { get => totalKnife;}
+        public int AmountKnifeLeft { get => amountKnifeLeft;}
 
         private void Awake()
         {

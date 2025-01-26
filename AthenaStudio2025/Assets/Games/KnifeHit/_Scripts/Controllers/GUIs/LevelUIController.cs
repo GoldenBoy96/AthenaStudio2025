@@ -1,6 +1,7 @@
 using MyUtils;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 namespace KnifeHit
@@ -9,6 +10,7 @@ namespace KnifeHit
     {
         [SerializeField] GameObject levelScreen;
         [SerializeField] GameObject loseScreen;
+        [SerializeField] TMP_Text knifeNumberLabel;
 
         [Header("Runtime paramete")]
         [SerializeField] List<GameObject> screens = new List<GameObject>();
@@ -33,9 +35,11 @@ namespace KnifeHit
             screens.Add(levelScreen);
             screens.Add(loseScreen);
             Observer.Instance.AddObserver(ObserverConstants.START_GAME,
-                (x) => ChangeToLevelScreen());
-            Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME, 
+                (x) => { ChangeToLevelScreen(); UpdateKnifeNumber(); });
+            Observer.Instance.AddObserver(ObserverConstants.LOSE_GAME,
                 (x) => StartCoroutine(WaitToEnableLoseScreen()));
+            Observer.Instance.AddObserver(ObserverConstants.KNIFE_THROWN,
+                (x) => UpdateKnifeNumber());
         }
 
 
@@ -82,6 +86,12 @@ namespace KnifeHit
         public void OnThrowKnifeClick()
         {
             GameManager.Instance.ThrowKnife();
+        }
+
+        public void UpdateKnifeNumber()
+        {
+            knifeNumberLabel.text = (GameManager.Instance.CurrentLevel.AmountKnifeLeft - 1) + "/"
+                + GameManager.Instance.CurrentLevel.TotalKnife;
         }
     }
 }
